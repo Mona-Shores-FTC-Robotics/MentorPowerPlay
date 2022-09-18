@@ -27,11 +27,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.ObjectClasses;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -48,6 +50,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
  * See PushbotTeleopTank_Iterative and others classes starting with "Pushbot" for usage examples.
  *
  */
+
 public class DriveTrain
 {
     /* Public OpMode members. */
@@ -72,12 +75,9 @@ public class DriveTrain
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
-
     /* Constructor */
     public DriveTrain(){
-
     }
-
 
     /* Initialize Hardware interfaces */
 
@@ -91,10 +91,10 @@ public class DriveTrain
         LBDrive  = ahwMap.get(DcMotor.class, "LBDrive");
         RBDrive = ahwMap.get(DcMotor.class, "RBDrive");
 
-        LFDrive.setDirection(DcMotor.Direction.REVERSE);
-        RFDrive.setDirection(DcMotor.Direction.FORWARD);
-        LBDrive.setDirection(DcMotor.Direction.REVERSE);
-        RBDrive.setDirection(DcMotor.Direction.FORWARD);
+        LFDrive.setDirection(DcMotor.Direction.FORWARD);
+        RFDrive.setDirection(DcMotor.Direction.REVERSE);
+        LBDrive.setDirection(DcMotor.Direction.FORWARD);
+        RBDrive.setDirection(DcMotor.Direction.REVERSE);
 
         // Set all motors to zero power
         LFDrive.setPower(0);
@@ -132,18 +132,16 @@ public class DriveTrain
         double sPercent = Math.abs(strafe) / (Math.abs(drive) + Math.abs(turn) + Math.abs(strafe));
         double tPercent = Math.abs(turn) / (Math.abs(drive) + Math.abs(turn) + Math.abs(strafe));
 
-        rightFrontPower    = (drive * dPercent) + (-strafe * sPercent) + (-turn * tPercent);
+        rightFrontPower  = (drive * dPercent) + (-strafe * sPercent) + (-turn * tPercent);
         rightBackPower   = (drive * dPercent) + (strafe * sPercent) + (-turn * tPercent);
-        leftFrontPower    = (drive * dPercent) + (strafe * sPercent) + (turn * tPercent);
-        leftBackPower   = (drive * dPercent) + (-strafe * sPercent) + (turn * tPercent);
+        leftFrontPower   = (drive * dPercent) + (strafe * sPercent) + (turn * tPercent);
+        leftBackPower    = (drive * dPercent) + (-strafe * sPercent) + (turn * tPercent);
 
         // Send calculated power to wheels
         LFDrive.setPower(leftFrontPower);
         RFDrive.setPower(rightFrontPower);
         LBDrive.setPower(leftBackPower);
         RBDrive.setPower(rightBackPower);
-
-
 
 
     }

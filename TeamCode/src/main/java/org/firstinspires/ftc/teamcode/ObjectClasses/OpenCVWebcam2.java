@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.ObjectClasses;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -37,7 +37,7 @@ public class OpenCVWebcam2 {
 
     private final int RectLwidth = 85;
     private final int RectLheight = 85;
-    private final int RectMwidth = 102;
+    private final int RectMwidth = 40;
     private final int RectMheight = 85;
     private final int RectRwidth = 80;
     private final int RectRheight = 85;
@@ -69,7 +69,9 @@ public class OpenCVWebcam2 {
         int cameraMonitorViewId = hwMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hwMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hwMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
-        webcam.setPipeline(new SamplePipeline());
+        //webcam.setPipeline(new SamplePipeline());
+
+        webcam.setPipeline(new GripPipeline());
 
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
@@ -95,26 +97,32 @@ public class OpenCVWebcam2 {
 
 
             //Draw Three Rectangles
-            Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
+            //Imgproc.rectangle(outPut, rectL, rectanglecolor, 2);
             Imgproc.rectangle(outPut, rectM, rectanglecolor, 2);
-            Imgproc.rectangle(outPut, rectR, rectanglecolor, 2);
-            LeftCrop = input.submat(rectL);
+            //Imgproc.rectangle(outPut, rectR, rectanglecolor, 2);
+            //LeftCrop = input.submat(rectL);
             MiddleCrop = input.submat(rectM);
-            RightCrop = input.submat(rectR);
+            //RightCrop = input.submat(rectR);
 
             // channel 1 = green
 
-            Core.extractChannel(LeftCrop, LeftCrop, 1);
+            //Core.extractChannel(LeftCrop, LeftCrop, 1);
+
+
+
             Core.extractChannel(MiddleCrop, MiddleCrop, 1);
-            Core.extractChannel(RightCrop, RightCrop, 1);
+            //Core.extractChannel(RightCrop, RightCrop, 1);
 
-            LeftMinMax = Core.minMaxLoc(LeftCrop);
+            //LeftMinMax = Core.minMaxLoc(LeftCrop);
+
+
+
             MiddleMinMax = Core.minMaxLoc(MiddleCrop);
-            RightMinMax = Core.minMaxLoc(RightCrop);
+            //RightMinMax = Core.minMaxLoc(RightCrop);
 
-            LeftMax = LeftMinMax.maxVal;
+            //LeftMax = LeftMinMax.maxVal;
             MiddleMax = MiddleMinMax.maxVal;
-            RightMax = RightMinMax.maxVal;
+            //RightMax = RightMinMax.maxVal;
 
             //Core.extractChannel(input, InputGreenChannel, 1);
             //GreenMinMax = Core.minMaxLoc(InputGreenChannel);
