@@ -77,9 +77,9 @@ public class TeleOp_Iterative extends OpMode
     @Override
     public void loop() {
         // GamePad Inputs
-        MecDrive.drive = -gamepad1.left_stick_y; //-1.0 to 1.0
-        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
-        MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
+        MecDrive.drive = -gamepad1.left_stick_y *.3; //-1.0 to 1.0
+        MecDrive.strafe = gamepad1.left_stick_x * .5; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
+        MecDrive.turn  =  gamepad1.right_stick_x * .5; //-1.0 to 1.0
 
        //  Robot Functions
         MecDrive.MecanumDrive();

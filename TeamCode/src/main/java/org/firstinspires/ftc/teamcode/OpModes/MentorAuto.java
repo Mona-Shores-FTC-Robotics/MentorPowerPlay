@@ -28,7 +28,7 @@ public class MentorAuto extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    final double TICKS_PER_REV = 400.6;
+    final double TICKS_PER_REV = 537.7;
     final double DRIVE_GEAR_REDUCTION = 1;
     final double WHEEL_DIAMETER_INCHES = 3.93701;
     double COUNTS_PER_INCH = (TICKS_PER_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -80,13 +80,9 @@ public class MentorAuto extends LinearOpMode {
             telemetry.addData("Autonomous Routine ", currentAuto);
 
             //telemetry.addData(">", "Robot Heading = %d", gyro.getIntegratedZValue());
-            telemetry.addData("left square green channel", Vision.LeftMax);
+
             telemetry.addData("middle square green channel", Vision.MiddleMax);
-            telemetry.addData("right square green channel", Vision.RightMax);
 
-            telemetry.addData("Team Element Location", Vision.TeamEleLoc);
-
-            Vision.FinalTeamEleLoc = Vision.TeamEleLoc;
 
             telemetry.update();
             if (gamepad1.dpad_down) {
@@ -123,16 +119,14 @@ public class MentorAuto extends LinearOpMode {
             }
         }
 
-        telemetry.addData("Final Team Element Location", Vision.FinalTeamEleLoc);
-        telemetry.update();
 
 
         //Read Signal
         //Use Webcam to find out Signal and store in Signal variable
-        Signal = 1;
+        Signal =  3;
 
         //Backup into wall for alignment
-        //encoderDrive(.8, 20, 20);
+        encoderDrive(.2, -20, -20);
 
         //Just Park Based on Signal
 
@@ -331,21 +325,21 @@ public class MentorAuto extends LinearOpMode {
 
         if (opModeIsActive()) {
             //Drive Forward
-            encoderDrive(.8, -140, -140);
+            encoderDrive(.2, 140, 140);
             //Strafe in Front of High Pole
             //Can we use vision to find the pole?
-            strafeDrive(.6, halfTileDistance * allianceLocationFactor, halfTileDistance * allianceLocationFactor);
+            strafeDrive(.2, halfTileDistance * allianceLocationFactor, halfTileDistance * allianceLocationFactor);
             //Place Cone on High Pole
             //PLACEHOLDER CODE FOR PLACING CONE
             sleep(1000);
 
             //Park after placing cone
             if (Signal == 1) {
-                strafeDrive(.6, fullTileDistance - (halfTileDistance * allianceLocationFactor), fullTileDistance - (halfTileDistance * allianceLocationFactor));
+                strafeDrive(.2, fullTileDistance - (halfTileDistance * allianceLocationFactor), fullTileDistance - (halfTileDistance * allianceLocationFactor));
             } else if (Signal == 2) {
-                strafeDrive(.6, -(halfTileDistance * allianceLocationFactor), -(halfTileDistance * allianceLocationFactor));
+                strafeDrive(.2, -(halfTileDistance * allianceLocationFactor), -(halfTileDistance * allianceLocationFactor));
             } else if (Signal == 3) {
-                strafeDrive(.6, ((-1) * (fullTileDistance + halfTileDistance) * allianceLocationFactor), (-1 * (fullTileDistance + halfTileDistance) * allianceLocationFactor));
+                strafeDrive(.2, ((-1) * (fullTileDistance + halfTileDistance) * allianceLocationFactor), (-1 * (fullTileDistance + halfTileDistance) * allianceLocationFactor));
             }
         }
     }
@@ -406,7 +400,7 @@ public class MentorAuto extends LinearOpMode {
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        MecDrive.drive = 0.2;
+        MecDrive.drive = 0.4;
         MecDrive.strafe = 0.0;
         MecDrive.turn = 0.0;
         MecDrive.MecanumDrive();
