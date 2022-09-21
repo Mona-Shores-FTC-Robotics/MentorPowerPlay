@@ -117,7 +117,7 @@ public class OpenCVWebcam2 {
             MiddleMax = MiddleMinMax.maxVal;
             */
 
-             return findContoursInput;
+             return filterContoursOutput.get(0);
 
         }
 
