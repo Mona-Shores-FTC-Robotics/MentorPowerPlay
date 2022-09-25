@@ -33,6 +33,7 @@ import static java.lang.Thread.sleep;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import org.firstinspires.ftc.teamcode.ObjectClasses.ButtonConfig;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ObjectClasses.DriveTrain;
@@ -59,6 +60,7 @@ public class TeleOp_Iterative extends OpMode
 {
     // Declare OpMode members.
     DriveTrain MecDrive = new DriveTrain();
+    ButtonConfig ButtonConfig = new ButtonConfig();
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
@@ -71,27 +73,9 @@ public class TeleOp_Iterative extends OpMode
 
     @Override
     public void init_loop() {
-        if (gamepad1.left_stick_y > .25 && MecDrive.multiplier > MecDrive.MINMULT){
-            MecDrive.multiplier = (MecDrive.multiplier * 10 - 1) / 10;
 
-            try {
-                sleep(400);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            if (gamepad1.left_stick_y < -.25 && MecDrive.multiplier < MecDrive.MAXMULT){
-                MecDrive.multiplier = (MecDrive.multiplier * 10 + 1) / 10;
-            }
-            try {
-                sleep(400);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        telemetry.addData("Drive Multiplier", MecDrive.multiplier);
-        telemetry.update();
+        ButtonConfig.ConfigureMultiplier(this, MecDrive);
+
     }
 
     @Override
@@ -102,9 +86,9 @@ public class TeleOp_Iterative extends OpMode
     @Override
     public void loop() {
         // GamePad Inputs
-        MecDrive.drive = -gamepad1.left_stick_y *.3; //-1.0 to 1.0
-        MecDrive.strafe = gamepad1.left_stick_x * .5; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
-        MecDrive.turn  =  gamepad1.right_stick_x * .5; //-1.0 to 1.0
+        MecDrive.drive = -gamepad1.left_stick_y; //-1.0 to 1.0
+        MecDrive.strafe = gamepad1.left_stick_x; //-1.0 to 1.0 // right trigger strafe right, left trigger strafe left
+        MecDrive.turn  =  gamepad1.right_stick_x; //-1.0 to 1.0
 
        //  Robot Functions
         MecDrive.MecanumDrive();
