@@ -29,11 +29,15 @@
 
 package org.firstinspires.ftc.teamcode.OpModes;
 
+import static java.lang.Thread.sleep;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.ObjectClasses.DriveTrain;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -67,6 +71,27 @@ public class TeleOp_Iterative extends OpMode
 
     @Override
     public void init_loop() {
+        if (gamepad1.left_stick_y > .25 && MecDrive.multiplier > MecDrive.MINMULT){
+            MecDrive.multiplier = (MecDrive.multiplier * 10 - 1) / 10;
+
+            try {
+                sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            if (gamepad1.left_stick_y < -.25 && MecDrive.multiplier < MecDrive.MAXMULT){
+                MecDrive.multiplier = (MecDrive.multiplier * 10 + 1) / 10;
+            }
+            try {
+                sleep(400);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        telemetry.addData("Drive Multiplier", MecDrive.multiplier);
+        telemetry.update();
     }
 
     @Override

@@ -67,6 +67,9 @@ public class DriveTrain
     public double turn = 0;
     public Orientation lastAngles = new Orientation();
     public double currAngle = 0.0;
+    public double multiplier = 1;
+    public double MINMULT = .5;
+    public double MAXMULT = 1;
 
 
     BNO055IMU imu;
@@ -119,10 +122,10 @@ public class DriveTrain
     public void setAllPower(double p){setMotorPower(p,p,p,p);}
 
     public void setMotorPower(double lF,double rF,double lB,double rB){
-        LFDrive.setPower(lF);
-        RFDrive.setPower(rF);
-        LBDrive.setPower(lB);
-        RBDrive.setPower(rB);
+        LFDrive.setPower(lF*multiplier);
+        RFDrive.setPower(rF*multiplier);
+        LBDrive.setPower(lB*multiplier);
+        RBDrive.setPower(rB*multiplier);
     }
     public void MecanumDrive(){
 
@@ -138,10 +141,10 @@ public class DriveTrain
         leftBackPower    = (drive * dPercent) + (-strafe * sPercent) + (turn * tPercent);
 
         // Send calculated power to wheels
-        LFDrive.setPower(leftFrontPower);
-        RFDrive.setPower(rightFrontPower);
-        LBDrive.setPower(leftBackPower);
-        RBDrive.setPower(rightBackPower);
+        LFDrive.setPower(leftFrontPower*multiplier);
+        RFDrive.setPower(rightFrontPower*multiplier);
+        LBDrive.setPower(leftBackPower*multiplier);
+        RBDrive.setPower(rightBackPower*multiplier);
 
 
     }
