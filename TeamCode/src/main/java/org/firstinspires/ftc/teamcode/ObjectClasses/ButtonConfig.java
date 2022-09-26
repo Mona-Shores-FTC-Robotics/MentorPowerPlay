@@ -52,10 +52,12 @@ public class ButtonConfig {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
         } else {
             if (activeOpMode.gamepad1.left_stick_y < -.25 && MecDrive.multiplier < MecDrive.MAXMULT) {
                 MecDrive.multiplier = (MecDrive.multiplier * 10 + 1) / 10;
             }
+
             try {
                 sleep(400);
             } catch (InterruptedException e) {

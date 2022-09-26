@@ -197,17 +197,18 @@ public class DriveTrain
 
         setAllPower(0);
 
-        LFDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RFDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        LBDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        RBDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         LFDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RFDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         LBDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         RBDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        activeOpMode.sleep(250);
+
+        LFDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RFDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LBDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RBDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     public void strafeDrive(double speed, int leftInches, int rightInches, LinearOpMode activeOpMode) {
