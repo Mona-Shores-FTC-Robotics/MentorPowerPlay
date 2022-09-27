@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.ObjectClasses;
 import static java.lang.Thread.sleep;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.OpModes.TeleOp_Iterative;
 
@@ -43,7 +44,7 @@ public class ButtonConfig {
         }
     }
 
-    public void ConfigureMultiplier(TeleOp_Iterative activeOpMode, DriveTrain MecDrive) {
+    public void ConfigureMultiplier(OpMode activeOpMode, DriveTrain MecDrive) {
         if (activeOpMode.gamepad1.left_stick_y > .25 && MecDrive.multiplier > MecDrive.MINMULT) {
             MecDrive.multiplier = (MecDrive.multiplier * 10 - 1) / 10;
 
