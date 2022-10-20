@@ -11,6 +11,7 @@ public class ButtonConfig {
 
     public String startingLocationString;
     public String allianceColorString;
+    private int lastStickY;
 
     /* Constructor */
     public ButtonConfig() {
@@ -45,25 +46,17 @@ public class ButtonConfig {
     }
 
     public void ConfigureMultiplier(OpMode activeOpMode, DriveTrain MecDrive) {
-        if (activeOpMode.gamepad1.left_stick_y > .25 && MecDrive.multiplier > MecDrive.MINMULT) {
+        if (activeOpMode.gamepad1.left_stick_y > .25 && MecDrive.multiplier > MecDrive.MINMULT && lastStickY != 1) {
             MecDrive.multiplier = (MecDrive.multiplier * 10 - 1) / 10;
+            lastStickY = 1;
+        }
 
-            try {
-                sleep(400);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-            if (activeOpMode.gamepad1.left_stick_y < -.25 && MecDrive.multiplier < MecDrive.MAXMULT) {
-                MecDrive.multiplier = (MecDrive.multiplier * 10 + 1) / 10;
-            }
-
-            try {
-                sleep(400);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        else if (activeOpMode.gamepad1.left_stick_y < -.25 && MecDrive.multiplier < MecDrive.MAXMULT && lastStickY != -1) {
+            MecDrive.multiplier = (MecDrive.multiplier * 10 + 1) / 10;
+            lastStickY = -1;
+        }
+        else if (activeOpMode.gamepad1.left_stick_y < .25 && activeOpMode.gamepad1.left_stick_y > -.25){
+            lastStickY = 0;
         }
         activeOpMode.telemetry.addData("Drive Multiplier", MecDrive.multiplier);
         activeOpMode.telemetry.update();
